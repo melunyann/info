@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>melune ／ めるね - Illustration Commission</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--pink:#FF5C7A;
+--pink-deep:#E8425F;
+--blue:#A9DDEE;
+--blue-deep:#7FC7DE;
+--bg:#FFF6F8;
+--white:#FFFFFF;
+--ink:#3F3A42;
+--muted:#8B8790;
+--border:#F5DCE1;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Zen Maru Gothic',sans-serif;color:var(--ink);background:var(--bg)}
+section{padding:64px 44px;border-top:1px solid var(--border)}
+#home{border-top:none}
+h1{font-size:22px;font-weight:700;margin:0 0 26px;letter-spacing:.02em}
+.kicker{font-size:11px;letter-spacing:.18em;color:var(--pink-deep);margin-bottom:8px;font-weight:700}
+
+/* ---- nav ---- */
+.nav-wrap{position:fixed;top:16px;right:16px;z-index:999}
+.nav-btn{width:50px;height:50px;border-radius:50%;background:var(--white);border:1.5px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;box-shadow:0 2px 10px rgba(63,58,66,0.10)}
+.nav-bar{width:20px;height:2px;background:var(--pink);border-radius:2px;transition:transform .25s,opacity .2s}
+.nav-wrap.open .nav-bar:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-wrap.open .nav-bar:nth-child(2){opacity:0}
+.nav-wrap.open .nav-bar:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-overlay{position:fixed;inset:0;background:rgba(63,58,66,.28);opacity:0;pointer-events:none;transition:opacity .25s;z-index:997}
+.nav-overlay.show{opacity:1;pointer-events:auto}
+.nav-panel{position:fixed;top:0;right:0;height:100%;width:min(300px,84vw);background:var(--white);z-index:998;transform:translateX(100%);transition:transform .3s cubic-bezier(.32,.72,0,1);padding:86px 28px 32px;display:flex;flex-direction:column;box-shadow:-6px 0 24px rgba(63,58,66,.10)}
+.nav-panel.show{transform:translateX(0)}
+.nav-panel .kicker{margin-bottom:20px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:14px 2px;text-decoration:none;color:var(--ink);border-bottom:1px solid #F7E8EB;font-weight:500;font-size:15px}
+.nav-item:first-child{padding-top:0}
+.nav-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.nav-item:nth-child(odd) .nav-dot{background:var(--pink)}
+.nav-item:nth-child(even) .nav-dot{background:var(--blue-deep)}
+.nav-foot{margin-top:auto;padding-top:20px;font-size:11px;color:var(--muted)}
+
+/* ---- home ---- */
+#home{padding-top:96px}
+.home-title{font-size:28px;font-weight:700;line-height:1.6;margin:0 0 16px}
+.home-title span{color:var(--pink)}
+.home-sub{font-size:13.5px;color:var(--muted);line-height:2;max-width:32em;margin:0 0 22px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;background:var(--pink);color:#fff;border-radius:20px;padding:6px 16px;margin-bottom:22px}
+.btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;text-decoration:none;padding:13px 28px;border-radius:26px;background:var(--pink);color:#fff}
+.btn:active{transform:scale(.97)}
+
+/* ---- profile ---- */
+.profile-row{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.avatar{width:68px;height:68px;border-radius:50%;overflow:hidden;border:2px solid var(--blue);flex-shrink:0;background:var(--white)}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;pointer-events:none}
+.profile-name{font-size:16px;font-weight:700}
+.stat-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.stat{font-size:11.5px;font-weight:500;border-radius:20px;padding:6px 14px;background:var(--white);border:1px solid var(--border);color:var(--muted)}
+.stat.on{background:var(--blue);border-color:var(--blue-deep);color:#245a6b}
+.bio{font-size:13.5px;line-height:2.3;color:var(--ink);background:var(--white);padding:22px 24px;border-radius:14px;border:1px solid var(--border)}
+.more-link{display:inline-flex;align-items:center;gap:4px;margin-top:18px;font-size:12.5px;font-weight:700;color:var(--pink-deep);text-decoration:none}
+
+/* ---- commission (price + ych) ---- */
+.h2{font-size:15px;font-weight:700;margin:30px 0 14px}
+.h2:first-of-type{margin-top:0}
+.note{font-size:12px;color:var(--muted);margin:-6px 0 14px}
+.tbl{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.trow{display:flex;align-items:baseline;gap:2.4em;padding:20px 22px;font-size:13.5px;border-bottom:1px solid #F7E8EB}
+.trow:last-child{border-bottom:none}
+.trow b{color:var(--pink-deep)}
+.optgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.optcard{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:18px 18px;display:flex;flex-direction:column;gap:8px}
+.optname{font-size:13px;font-weight:700}
+.optprice{font-size:13px;color:var(--pink-deep);font-weight:500}
+.optdesc{font-size:11px;color:var(--muted);line-height:1.9}
+.ordergrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ordercard{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--white)}
+.orderimg{aspect-ratio:1;background:#FBEAEE;position:relative;overflow:hidden}
+.orderimg img{width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;user-select:none}
+.orderbody{padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px}
+.orderdesc{font-size:10.5px;color:var(--muted);line-height:1.9}
+
+.subdiv{margin-top:44px;padding-top:36px;border-top:2px dashed var(--blue)}
+.commission-note{font-size:12px;color:#245a6b;background:#EAF7FB;padding:18px 22px;border-radius:14px;line-height:2}
+.numbered{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;font-weight:700;margin:26px 0 14px}
+.hno{font-size:11px;color:#fff;background:var(--blue-deep);width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.linkrow{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.linkbtn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--blue-deep);background:#fff;border:1.5px solid var(--blue-deep);border-radius:18px;padding:7px 16px;text-decoration:none}
+.linkbtn svg{width:13px;height:13px}
+.scrollwrap{position:relative}
+.arrow{position:absolute;top:0;z-index:2;width:20px;height:26px;border:none;background:none;color:rgba(255,92,122,0.5);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px}
+.arrow.hidden{opacity:0;pointer-events:none}
+.arrow:first-child{left:0}
+.arrow:last-child{right:0}
+.ychrow{display:flex;gap:12px;overflow-x:auto;padding-bottom:12px;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+.ychrow::-webkit-scrollbar{height:4px}
+.ychrow::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+.ychcard{flex:0 0 150px}
+.ychph{aspect-ratio:1;background:#FBEAEE;border-radius:12px;position:relative;overflow:hidden;margin-bottom:6px}
+.ychph canvas{width:100%;height:100%;display:block;position:absolute;top:0;left:0}
+.ychcap{font-size:11px;color:var(--muted);text-align:center;line-height:1.8}
+
+/* ---- works ---- */
+.works-sub{font-size:12.5px;color:var(--muted);margin:0 0 24px}
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.witem{aspect-ratio:1;background:#FBEAEE;border-radius:14px;position:relative;overflow:hidden}
+.witem canvas{width:100%;height:100%;display:block;position:absolute;top:0;left:0}
+
+/* ---- notice ---- */
+.ncard{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:12px}
+.nh2{font-size:14px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.ndot{width:7px;height:7px;border-radius:50%;background:var(--pink);flex-shrink:0}
+.nbody{font-size:12px;color:var(--muted);line-height:1.9}
+.nnote{background:#EAF7FB;border-radius:14px;padding:18px 22px;font-size:12px;color:#245a6b;line-height:1.9;margin-top:20px}
+
+/* ---- contact ---- */
+.contact-sub{font-size:12.5px;color:var(--muted);margin:0 0 26px;line-height:2}
+.clist{display:flex;flex-direction:column;gap:10px}
+.citem{display:flex;align-items:center;gap:14px;background:var(--white);border:1px solid var(--border);border-radius:14px;padding:16px 20px;text-decoration:none;color:var(--ink)}
+.cicon{width:38px;height:38px;border-radius:50%;background:#FBEAEE;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cicon svg{width:16px;height:16px;stroke:var(--pink);stroke-width:1.8;fill:none}
+.cname{font-size:13.5px;font-weight:700}
+.cdesc{font-size:10.5px;color:var(--muted);margin-top:2px}
+.carrow{color:var(--blue-deep);font-size:14px;margin-left:auto}
+
+@media (max-width:600px){
+section{padding:52px 22px}
+#home{padding-top:88px}
+.optgrid,.ordergrid,.wgrid{grid-template-columns:1fr;gap:10px}
+.ordercard{display:flex;flex-direction:row}
+.orderimg{width:40%;flex:0 0 40%;aspect-ratio:unset}
+.orderbody{flex:1;padding:14px 16px}
+.wgrid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="nav-wrap" id="nav-wrap">
+<button class="nav-btn" id="nav-btn" aria-label="メニューを開く">
+<span class="nav-bar"></span><span class="nav-bar"></span><span class="nav-bar"></span>
+</button>
+</div>
+<div class="nav-overlay" id="nav-overlay"></div>
+<nav class="nav-panel" id="nav-panel">
+<div class="kicker">MENU</div>
+<a class="nav-item" href="#home"><span class="nav-dot"></span>ホーム</a>
+<a class="nav-item" href="#profile"><span class="nav-dot"></span>プロフィール</a>
+<a class="nav-item" href="#commission"><span class="nav-dot"></span>コミッション</a>
+<a class="nav-item" href="#works"><span class="nav-dot"></span>実績</a>
+<a class="nav-item" href="#notice"><span class="nav-dot"></span>注意事項</a>
+<a class="nav-item" href="#contact"><span class="nav-dot"></span>お問い合わせ</a>
+<div class="nav-foot">© melune</div>
+</nav>
+
+<section id="home">
+<div class="kicker">ILLUSTRATION COMMISSION</div>
+<h1 class="home-title">好きなキャラクターを、<br>もっと好きになる<span>一枚</span>を届けます。</h1>
+<p class="home-sub">印象的な瞳と柔らかな表情表現で、可愛らしく存在感のあるキャラクターを描いています。</p>
+<div class="pill">受付中・7月末以降納品分受付</div><br>
+<a class="btn" href="#commission">コミッションを見る ›</a>
+</section>
+
+<section id="profile">
+<div class="kicker">PROFILE</div>
+<h1>プロフィール</h1>
+<div class="profile-row">
+<div class="avatar"><img src="https://lh3.googleusercontent.com/d/10V1u5Dogrhch2EaKTiKM3dZglGRax7xL" alt="アイコン"></div>
+<div class="profile-name">melune ／ めるね</div>
+</div>
+<div class="stat-row">
+<span class="stat on">実績 161件</span>
+<span class="stat">通常 1件</span>
+<span class="stat">簡易 4件</span>
+<span class="stat">量産 3件</span>
+</div>
+<div class="bio">印象的な瞳と柔らかな表情表現で、可愛らしく存在感のあるキャラクターを描いています。<br>
+二人の関係性が伝わる構図や、感情の伝わる表情表現を得意としています。<br>
+コンビ・ユニット・コラボイラストなどもお任せください。</div>
+<a class="more-link" href="#commission">コミッション詳細を見る ›</a><br>
+<a class="more-link" href="#works">実績をもっと見る ›</a>
+</section>
+
+<section id="commission">
+<div class="kicker">COMMISSION</div>
+<h1>コミッション</h1>
+
+<div class="h2">基本料金</div>
+<div class="tbl">
+<div class="trow"><span>胸上</span><b>¥3,000〜</b></div>
+<div class="trow"><span>腰上</span><b>¥5,000〜</b></div>
+<div class="trow"><span>全身</span><b>¥8,000〜</b></div>
+</div>
+
+<div class="h2">制作オプション</div>
+<div class="optgrid">
+<div class="optcard"><div class="optname">人物追加</div><div class="optprice">+ 基本料金の75％</div><div class="optdesc">算出金額は100円単位に切り上げ<br>3人以上は人数に応じて10日～の納期延長あり</div></div>
+<div class="optcard"><div class="optname">差分作成</div><div class="optprice">+ ¥500～</div><div class="optdesc">小物・表情・衣装などの差分作成が必要な方。内容により金額が異なります。</div></div>
+<div class="optcard"><div class="optname">複雑な小物・装飾</div><div class="optprice">+ ¥800～</div><div class="optdesc">細かい模様やレース・フリル、和服など</div></div>
+<div class="optcard"><div class="optname">A背景</div><div class="optprice">+ ¥2,000～</div><div class="optdesc">簡単なモチーフ1～2個程度、ぼかしを用いた背景</div></div>
+<div class="optcard"><div class="optname">B背景</div><div class="optprice">+ ¥4,000～</div><div class="optdesc">Aよりもさらに描きこむ背景</div></div>
+<div class="optcard"><div class="optname">高解像度化</div><div class="optprice">+ ¥1,000～</div><div class="optdesc">最短辺2,500pxを超える大きさで制作する場合に適用</div></div>
+<div class="optcard"><div class="optname">PSD納品</div><div class="optprice">+ ¥2,000～</div><div class="optdesc">レイヤー未統合データでの納品。著作権の譲渡は含みません</div></div>
+<div class="optcard"><div class="optname">構図指定</div><div class="optprice">+ ¥1,500～</div><div class="optdesc">商用フリー素材の構図での制作時に適用</div></div>
+</div>
+
+<div class="h2">利用オプション</div>
+<div class="optgrid">
+<div class="optcard"><div class="optname">実績非公開</div><div class="optprice">+ ¥1,500～</div><div class="optdesc">顔隠し・ぼかし等の条件付き公開も実績非公開扱いとなります</div></div>
+<div class="optcard"><div class="optname">商用利用</div><div class="optprice">+ ¥3,000～</div><div class="optdesc">収益化サイト・配信サムネ利用など。利用範囲により変動</div></div>
+<div class="optcard"><div class="optname">プレゼント用途</div><div class="optprice">要相談</div><div class="optdesc">活動者様へのプレゼント目的のご依頼に適用</div></div>
+</div>
+
+<div class="h2">短納期対応</div>
+<div class="optgrid">
+<div class="optcard"><div class="optname">即日～3日以内</div><div class="optprice">合計金額の150％～要相談</div></div>
+<div class="optcard"><div class="optname">～7日以内</div><div class="optprice">合計金額の100％～</div></div>
+<div class="optcard"><div class="optname">その他日数</div><div class="optprice">要相談</div></div>
+</div>
+
+<div class="h2" id="commission-rough">ラフなしプラン</div>
+<p class="note">ご依頼状況によりお受けできない場合がございます</p>
+<div class="ordergrid">
+<div class="ordercard"><div class="orderimg"><img src="https://lh3.googleusercontent.com/d/1XbOCkblyqkubRnBkKWzdwDKmiDTXA6DK" alt="簡易イラスト サンプル"></div><div class="orderbody"><div class="optname">簡易イラスト</div><div class="optprice">¥2,500〜</div><div class="orderdesc">腰上単体・胸上ペアでの価格です。腰上ペア +¥2,000</div></div></div>
+<div class="ordercard"><div class="orderimg"><img src="https://lh3.googleusercontent.com/d/1EI3ynfz95RIBMXEweD41SP8HLuS81Vid" alt="らくがきタイプ サンプル"></div><div class="orderbody"><div class="optname">らくがきタイプ</div><div class="optprice">1体 / ¥500〜</div><div class="orderdesc">シンプル・淡めテイスト。商用不可</div></div></div>
+<div class="ordercard"><div class="orderimg"><img src="https://lh3.googleusercontent.com/d/17pZHW-BBhNpNYG7aj2vhbenj0-SGw706" alt="おまかせ一枚絵 サンプル"></div><div class="orderbody"><div class="optname">おまかせ一枚絵</div><div class="optprice">¥5,000〜</div><div class="orderdesc">お任せで背景付きの一枚絵を制作。別途フォーム入力が必要です</div></div></div>
+</div>
+
+<div class="subdiv" id="commission-ych">
+<div class="kicker">YCH COMMISSION</div>
+<div class="h2" style="margin-top:0">量産イラスト</div>
+<div class="commission-note">セミオーダー形式の量産依頼です。同構図・ポーズのイラストが複数存在します。<br>一部プランは商用利用不可。ラフ提出・当方のミスを除く修正は行っておりません。</div>
+
+<div class="numbered"><span class="hno">1</span>デフォルメ</div>
+<div class="scrollwrap">
+<button class="arrow" aria-label="左へ">‹</button>
+<div class="ychrow">
+<div class="ychcard"><div class="ychph" data-src="https://lh3.googleusercontent.com/d/1MkDKFK35lps3nTUb7QfBbBJYFBzie6o-"><canvas></canvas></div><div class="ychcap">キラぷち<br>¥1,500～</div></div>
+</div>
+<button class="arrow" aria-label="右へ">›</button>
+</div>
+
+<div class="numbered"><span class="hno">2</span>等身ペア（胸上：¥2,000～／腰上：¥3,500～／通常塗+¥2,000）</div>
+<div class="linkrow">
+<a class="linkbtn" href="https://docs.google.com/forms/d/e/1FAIpQLSdD7h4sFDN5KbScKILyuop-OGkbQRC6EVuYjQP1_vrEnKezdg/viewform" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>依頼フォーム
+</a>
+<a class="linkbtn" href="https://x.com/melunyann/status/2071190500900778356" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>募集ポスト
+</a>
+</div>
+<div class="scrollwrap">
+<button class="arrow" aria-label="左へ">‹</button>
+<div class="ychrow">
+<div class="ychcard"><div class="ychph" data-src="https://lh3.googleusercontent.com/d/180zGZ4O9W3BWYAeIS7_9X2Bso4IbRj9l"><canvas></canvas></div><div class="ychcap">ポーズ01</div></div>
+<div class="ychcard"><div class="ychph" data-src="https://lh3.googleusercontent.com/d/1Bq2sisX6IEySqwqZBVdGFUc9sYWoE71m"><canvas></canvas></div><div class="ychcap">ポーズ02</div></div>
+<div class="ychcard"><div class="ychph" data-src="https://lh3.googleusercontent.com/d/1kTTwraLJgoorw7MpHUPIMRLksZuG1MPm"><canvas></canvas></div><div class="ychcap">ポーズ03</div></div>
+<div class="ychcard"><div class="ychph" data-src="https://lh3.googleusercontent.com/d/1s73n_NShL4GKkPw2xaNXY27uftcHhs3r"><canvas></canvas></div><div class="ychcap">ポーズ04</div></div>
+<div class="ychcard"><div class="ychph" data-src="https://lh3.googleusercontent.com/d/18c5jxRUyjWcbUvTTqRiCYPgx6PlydKHS"><canvas></canvas></div><div class="ychcap">ポーズ05</div></div>
+<div class="ychcard"><div class="ychph" data-src="https://lh3.googleusercontent.com/d/1lT4yYYygetgRrYUwd3EszApTfUNkoiVt"><canvas></canvas></div><div class="ychcap">ポーズ06</div></div>
+<div class="ychcard"><div class="ychph" data-src="https://lh3.googleusercontent.com/d/15uAKZ88fi89c7COjfm2vSRN4LnhIbArA"><canvas></canvas></div><div class="ychcap">ポーズ07</div></div>
+<div class="ychcard"><div class="ychph" data-src="https://lh3.googleusercontent.com/d/1HbdWwZbH3wHVuer3oSj2LweypoB813fC"><canvas></canvas></div><div class="ychcap">ポーズ08</div></div>
+</div>
+<button class="arrow" aria-label="右へ">›</button>
+</div>
+</div>
+</section>
+
+<section id="works">
+<div class="kicker">WORKS</div>
+<h1>実績</h1>
+<p class="works-sub">これまでにお受けしたご依頼の一部です。</p>
+<div class="wgrid">
+<div class="witem" data-src="https://lh3.googleusercontent.com/d/157C-EBf4E1a7xji9XrMPN0CDonpQdChz"><canvas></canvas></div>
+<div class="witem" data-src="https://lh3.googleusercontent.com/d/1R7GKmxDohSPFvk7AWQd1c9h7GE3komUf"><canvas></canvas></div>
+<div class="witem" data-src="https://lh3.googleusercontent.com/d/1XbOCkblyqkubRnBkKWzdwDKmiDTXA6DK"><canvas></canvas></div>
+<div class="witem" data-src="https://lh3.googleusercontent.com/d/1jc7Zk3Futrp9eg42QaFMAWYdaIDfnA3R"><canvas></canvas></div>
+<div class="witem" data-src="https://lh3.googleusercontent.com/d/1WnUDw3SI6fY0lPX4vCSs9Mltx-8N8RXz"><canvas></canvas></div>
+<div class="witem" data-src="https://lh3.googleusercontent.com/d/1EI3ynfz95RIBMXEweD41SP8HLuS81Vid"><canvas></canvas></div>
+</div>
+</section>
+
+<section id="notice">
+<div class="kicker">NOTICE</div>
+<h1>注意事項・利用規約</h1>
+<div class="ncard"><div class="nh2"><span class="ndot"></span>お支払いについて</div><div class="nbody">ご依頼確定後、制作開始前に全額前払いをお願いしております。銀行振込・PayPayに対応しています。</div></div>
+<div class="ncard"><div class="nh2"><span class="ndot"></span>著作権・利用範囲について</div><div class="nbody">著作権はmelune（作者）に帰属します。個人利用の範囲でご自由にお使いいただけます。商用利用は別途オプションをご選択ください。</div></div>
+<div class="ncard"><div class="nh2"><span class="ndot"></span>修正について</div><div class="nbody">ラフ確認時の修正は1回まで無料。2回目以降・完成後の大幅な変更は追加料金が発生する場合があります。</div></div>
+<div class="ncard"><div class="nh2"><span class="ndot"></span>キャンセルについて</div><div class="nbody">着手前：全額返金／ラフ提出後：制作料金の50％／完成後：返金不可</div></div>
+<div class="ncard"><div class="nh2"><span class="ndot"></span>禁止事項</div><div class="nbody">反社会的な表現・実在の人物をモデルにしたご依頼・過度な暴力表現等はお断りしております。無断転載・改変・商用利用オプション未購入での商用利用は固くお断りします。</div></div>
+<div class="nnote">上記はあくまで基本方針です。個別のご事情はご依頼前にご相談ください。内容は予告なく変更される場合があります。</div>
+</section>
+
+<section id="contact">
+<div class="kicker">CONTACT</div>
+<h1>お問い合わせ</h1>
+<p class="contact-sub">ご依頼・お見積りのご相談はお気軽にどうぞ。依頼フォームからのご連絡がスムーズです。</p>
+<div class="clist">
+<a class="citem" href="https://docs.google.com/forms/d/e/1FAIpQLSdxTu2qn_sV3hEWCuCN-0d5tI-xWG2Sdt36JsEL3uCO7ty0_A/viewform" target="_blank" rel="noopener">
+<div class="cicon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+<div><div class="cname">依頼フォーム</div><div class="cdesc">正式なご依頼はこちらから</div></div>
+<span class="carrow">›</span>
+</a>
+<a class="citem" href="https://mitsumotto.com/u/melune" target="_blank" rel="noopener">
+<div class="cicon"><svg viewBox="0 0 24 24"><path d="M9 7H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3"/><rect x="9" y="3" width="6" height="6" rx="1"/><path d="M9 12h6M9 16h4"/></svg></div>
+<div><div class="cname">簡易見積り</div><div class="cdesc">まずは金額の目安を知りたい方に</div></div>
+<span class="carrow">›</span>
+</a>
+<a class="citem" href="https://x.com/melunyann" target="_blank" rel="noopener">
+<div class="cicon"><svg viewBox="0 0 24 24" fill="#FF5C7A" stroke="none"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></div>
+<div><div class="cname">Twitter</div><div class="cdesc">最新のお知らせ・募集情報</div></div>
+<span class="carrow">›</span>
+</a>
+<a class="citem" href="mailto:melune25@gmail.com" target="_blank" rel="noopener">
+<div class="cicon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+<div><div class="cname">メール</div><div class="cdesc">その他のお問い合わせ</div></div>
+<span class="carrow">›</span>
+</a>
+</div>
+</section>
+
+<script>
+(function(){
+var wrap=document.getElementById('nav-wrap'),btn=document.getElementById('nav-btn'),panel=document.getElementById('nav-panel'),overlay=document.getElementById('nav-overlay');
+function openMenu(){wrap.classList.add('open');panel.classList.add('show');overlay.classList.add('show');}
+function closeMenu(){wrap.classList.remove('open');panel.classList.remove('show');overlay.classList.remove('show');}
+btn.addEventListener('click',function(){panel.classList.contains('show')?closeMenu():openMenu();});
+overlay.addEventListener('click',closeMenu);
+panel.querySelectorAll('.nav-item').forEach(function(item){
+item.addEventListener('click',function(e){
+e.preventDefault();
+var t=document.querySelector(this.getAttribute('href'));
+closeMenu();
+if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+});
+});
+
+document.querySelectorAll('.avatar img, .orderimg img').forEach(function(img){
+img.addEventListener('contextmenu',function(e){e.preventDefault();});
+img.addEventListener('dragstart',function(e){e.preventDefault();});
+});
+
+function loadToCanvas(item,wm){
+var src=item.getAttribute('data-src');if(!src)return;
+var canvas=item.querySelector('canvas');if(!canvas)return;
+var image=new Image();image.crossOrigin='anonymous';
+image.onload=function(){
+var w=item.offsetWidth||140,h=item.offsetHeight||w;
+var dpr=Math.max(Math.min(window.devicePixelRatio||1,3),2);
+canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+var ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);ctx.imageSmoothingQuality='high';
+var ir=image.naturalWidth/image.naturalHeight,cr=w/h,sx,sy,sw,sh;
+if(ir>cr){sh=image.naturalHeight;sw=sh*cr;sx=(image.naturalWidth-sw)/2;sy=0;}
+else{sw=image.naturalWidth;sh=sw/cr;sx=0;sy=(image.naturalHeight-sh)/2;}
+ctx.drawImage(image,sx,sy,sw,sh,0,0,w,h);
+ctx.save();ctx.globalAlpha=0.1;ctx.fillStyle='#3F3A42';
+ctx.font='bold '+Math.round(w*0.12)+'px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+ctx.translate(w/2,h/2);ctx.rotate(-Math.PI/4);
+var step=Math.round(Math.max(w,h)*0.55);
+for(var y=-Math.max(w,h);y<Math.max(w,h)*1.5;y+=step){ctx.fillText(wm,0,y);}
+ctx.restore();
+};
+image.onerror=function(){item.textContent='';};
+image.src=src;
+}
+var wmObserver=new IntersectionObserver(function(entries){
+entries.forEach(function(entry){
+if(entry.isIntersecting){
+var isYch=entry.target.classList.contains('ychph');
+loadToCanvas(entry.target, isYch?'@melunyann':'@melune');
+wmObserver.unobserve(entry.target);
+}
+});
+},{rootMargin:'80px'});
+document.querySelectorAll('.witem[data-src], .ychph[data-src]').forEach(function(el){
+el.addEventListener('contextmenu',function(e){e.preventDefault();});
+el.addEventListener('dragstart',function(e){e.preventDefault();});
+wmObserver.observe(el);
+});
+
+function alignArrows(){
+document.querySelectorAll('.scrollwrap').forEach(function(w){
+var ph=w.querySelector('.ychph');if(!ph)return;
+var top=(ph.offsetHeight-26)/2;
+w.querySelectorAll('.arrow').forEach(function(b){b.style.top=top+'px';});
+});
+}
+function updateArrowVisibility(w){
+var row=w.querySelector('.ychrow'),btns=w.querySelectorAll('.arrow');
+if(!row||btns.length<2)return;
+btns[0].classList.toggle('hidden',row.scrollLeft<=4);
+btns[1].classList.toggle('hidden',row.scrollLeft+row.clientWidth>=row.scrollWidth-4);
+}
+document.querySelectorAll('.scrollwrap').forEach(function(w){
+var btns=w.querySelectorAll('.arrow'),row=w.querySelector('.ychrow');
+btns[0].addEventListener('click',function(){row.scrollBy({left:-Math.round(row.clientWidth*0.7),behavior:'smooth'});});
+btns[1].addEventListener('click',function(){row.scrollBy({left:Math.round(row.clientWidth*0.7),behavior:'smooth'});});
+row.addEventListener('scroll',function(){updateArrowVisibility(w);},{passive:true});
+updateArrowVisibility(w);
+});
+window.addEventListener('resize',function(){alignArrows();document.querySelectorAll('.scrollwrap').forEach(updateArrowVisibility);});
+alignArrows();
+
+document.querySelectorAll('.witem canvas, .ychph canvas').forEach(function(c){
+c.addEventListener('touchstart',function(e){if(e.touches.length===1){c._tx=e.touches[0].clientX;c._ty=e.touches[0].clientY;}},{passive:true});
+c.addEventListener('touchend',function(e){
+var dx=Math.abs(e.changedTouches[0].clientX-(c._tx||0)),dy=Math.abs(e.changedTouches[0].clientY-(c._ty||0));
+if(dx<5&&dy<5)e.preventDefault();
+},{passive:false});
+});
+})();
+</script>
+</body>
+</html>
